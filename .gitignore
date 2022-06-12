@@ -1,4 +1,4 @@
-.pypirc/
+.pypirc
 dist/
 build/
 raise_tools.egg-info/
