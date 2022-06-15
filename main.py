@@ -112,12 +112,14 @@ def _main():
     parser = argparse.ArgumentParser(
         description='Checks compliance with the RAISE code template.')
     parser.add_argument('--path', type=str, help='Root directory')
-    parser.add_argument('init', action='store_true',
+    parser.add_argument('--init', action='store_true',
                         help='Initializes a new repo from a template')
     parser.add_argument('--template', type=str, default='dl4se',
                         help='Selects the template to use')
     parser.add_argument('--version', action='store_true',
                         help='Display the version and exit')
+    parser.add_argument('--no_fork', action='store_true',
+                        help='Do not fork the repo')
     parser.add_argument('--max_line_length', default=120)
     args = vars(parser.parse_args())
 
@@ -137,7 +139,7 @@ def _main():
         # Initialize a new repo: fork, and then clone
         template = args['template']
 
-        if not args.no_fork:
+        if not args['no_fork']:
             # Find the token
             if 'token' not in args:
                 print('raise will now fork the template repo to your account. ' +
@@ -152,7 +154,7 @@ def _main():
             repo.create_fork()
 
             # Clone the repo
-            Repo.clone_from(repo.html_url, os.getcwd())
+            Repo.clone(repo.html_url)
 
         return
 
