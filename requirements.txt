@@ -1,3 +1,5 @@
 build
 colorama
 pycodestyle
+PyGithub
+GitPython
