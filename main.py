@@ -20,6 +20,7 @@ import configparser
 
 
 CONFIG_FILENAME = '.raise.conf'
+VERSION_NUMBER = '1.0.1'
 
 
 def test_file_exists(base_path: Path, filename: str):
@@ -110,13 +111,19 @@ def _main():
     # Parse arguments
     parser = argparse.ArgumentParser(
         description='Checks compliance with the RAISE code template.')
-    parser.add_argument('path', type=str, help='Root directory')
+    parser.add_argument('--path', type=str, help='Root directory')
     parser.add_argument('init', action='store_true',
                         help='Initializes a new repo from a template')
     parser.add_argument('--template', type=str, default='dl4se',
                         help='Selects the template to use')
+    parser.add_argument('--version', action='store_true',
+                        help='Display the version and exit')
     parser.add_argument('--max_line_length', default=120)
     args = vars(parser.parse_args())
+
+    if args['version']:
+        print(f'raise v{VERSION_NUMBER}')
+        return
 
     # Does a config file exist?
     if os.path.exists(CONFIG_FILENAME):
