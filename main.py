@@ -11,12 +11,13 @@ import os
 import argparse
 import glob
 from pathlib import Path
-from colorama import Fore, init
-from pycodestyle import StyleGuide
+import configparser
 from typing import Union
+
+from pycodestyle import StyleGuide
+from colorama import Fore, init
 from github import Github
 from git import Repo
-import configparser
 
 
 CONFIG_FILENAME = '.raise.conf'
@@ -49,12 +50,13 @@ def test_string_exists(base_path: Path, filename: str, string: Union[str, list],
 
     :param {Path} base_path - The base path
     :param {str} filename - The file to test
-    :param {Union[str, list]} string - The string to test. If a list, checks if ANY of the strings exist
+    :param {Union[str, list]} string - The string to test. If a list, checks if ANY of the strings
+        exist.
     :param {bool} beginning - Whether the string should be at the beginning of the file.
     :return {bool} status - True if the string does NOT exist.
     """
-    with open(base_path / filename, 'r') as f:
-        text = f.read()
+    with open(base_path / filename, 'r', encoding='utf-8') as file:
+        text = file.read()
 
     pattern = ''  # Pattern to test for
     if beginning:
@@ -133,7 +135,7 @@ def _main():
         parser.read(CONFIG_FILENAME)
 
         # Overwrite args with config file preferences
-        overwrite_args_with_config(args, config)
+        overwrite_args_with_config(args, parser)
 
     if args['init']:
         # Initialize a new repo: fork, and then clone
@@ -149,12 +151,12 @@ def _main():
                 token = args['token']
 
             # Fork the repo
-            gh = Github(token)
-            repo = gh.get_repo(f'yrahul3910/raise-template-{template}')
+            github = Github(token)
+            repo = github.get_repo(f'yrahul3910/raise-template-{template}')
             repo.create_fork()
 
             # Clone the repo
-            Repo.clone(repo.html_url)
+            Repo.clone_from(repo.html_url, os.getcwd())
 
         return
 
