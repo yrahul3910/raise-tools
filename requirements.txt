@@ -3,3 +3,4 @@ colorama
 pycodestyle
 PyGithub
 GitPython
+pre-commit
