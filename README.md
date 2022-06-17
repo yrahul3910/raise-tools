@@ -1,5 +1,7 @@
 # raise-tools
 
+[![pylint](https://github.com/yrahul3910/raise-tools/actions/workflows/pylint.yml/badge.svg)](https://github.com/yrahul3910/raise-tools/actions/workflows/pylint.yml)
+
 This repository contains the source for `raise`, which check repositories by the RAISE lab for compliance with a template.
 
 ## Usage
