@@ -35,6 +35,7 @@ pip3 install -e .
 Most files in the project are standard in Python development; however, if you are unfamiliar, this section is for you.
 
 * `.gitignore`: Tells Git what files to ignore.
+* `.pre-commit-config.yaml`: This repo is held to a higher code standard than the templates. For that reason, we use `pylint` to check your code, and a pre-commit hook to prevent committing code that is not held to this standard.
 * `.pypirc`: You will not have this when you clone the repo; see the Release section below for instructions on setting it up. It is, however, pretty likely that you will *never* need this anyway.
 * `build.sh`: You again, will not likely interact with this file. This simply creates a build and uploads it to PyPI. It's two commands, but it's two commands I often forget.
 * `CONTRIBUTING.md`: Tells people how to contribute to the project. You're likely reading it right now.
